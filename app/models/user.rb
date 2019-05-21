@@ -4,17 +4,17 @@ class User
   DATA = [
     {
       id: 101,
-      name: 'Dave',
+      name: 'Dave N.',
       email: 'dave@gmail.com'
     },
     {
       id: 102,
-      name: 'Simon',
+      name: 'Simon L.',
       email: 'simon@gmail.com'
     },
     {
       id: 103,
-      name: 'Frank',
+      name: 'Frank S.',
       email: 'frank@gmail.com'
     }
   ].freeze

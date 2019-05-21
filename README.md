@@ -82,7 +82,7 @@ API allows you to include related entities, so the following request should retu
       "type": "user",
       "id": 101,
       "attributes": {
-        "name": "Dave",
+        "name": "Dave N.",
         "email": "dave@gmail.com"
       }
     }
@@ -149,7 +149,7 @@ The `include` parameter should also work, returning each user that is related to
       "type": "user",
       "id": 101,
       "attributes": {
-        "name": "Dave",
+        "name": "Dave N.",
         "email": "dave@gmail.com"
       }
     },
@@ -157,7 +157,7 @@ The `include` parameter should also work, returning each user that is related to
       "type": "user",
       "id": 102,
       "attributes": {
-        "name": "Simon",
+        "name": "Simon L.",
         "email": "simon@gmail.com"
       }
     }
