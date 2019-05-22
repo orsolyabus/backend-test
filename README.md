@@ -7,8 +7,8 @@ For this challenge, we would like you to build a simple API that return informat
 This project uses ruby-2.6.2.
 
 1. Install ruby dependancies with `bundle install`
-2. Run the webserver `bundle exec rails s`
-3. Access the API on `http://localhost:3000`
+2. Run the webserver `bundle exec rails s -p 3005`
+3. Access the API on `http://localhost:3005`
 
 We recommend using Postman to access the API.
 
