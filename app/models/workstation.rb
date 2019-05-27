@@ -39,11 +39,40 @@ class Workstation
     }
   ].freeze
   
-  def self.find(id)
-    DATA.select{|item| item[:id]==id.to_i}.first
+  def self.find(id)      
+    {"data": Workstation.format(DATA.select{|item| item[:id]==id.to_i}.first)} 
   end
   
   def self.all
-    DATA
+    {"data": DATA.map{|station| Workstation.format(station)}}
+  end
+  
+  private
+  
+  def self.format(station)
+    formatted = {
+      "type": "workstation",
+      "id": "",
+      "attributes": {
+        "name": "",
+        "ip_address": "",
+        "status": "",
+        "instance_type": "",
+        "platform": ""
+      },
+      "relationships": {
+        "users": {
+          "data": [
+          ]
+        }
+      }
+    }
+    formatted[:id] = station[:id]
+    formatted[:attributes] = formatted[:attributes].map { |k,_| [k, station[k]] }.to_h 
+    if station[:users]
+      puts station[:users]
+      formatted[:relationships][:users] = station[:users].map{ |id| {"id": id, "type":"user"}}
+    end
+    formatted
   end
 end
