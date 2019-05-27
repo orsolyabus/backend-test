@@ -2,6 +2,11 @@
 
 class WorkstationsController < ApplicationController
   def show
-    render json: {}
+    station = Workstation.find(params[:id])
+    render json: station
+  end
+  def index
+    # puts DATA
+    render json: Workstation.all
   end
 end

@@ -38,4 +38,12 @@ class Workstation
       users: []
     }
   ].freeze
+  
+  def self.find(id)
+    DATA.select{|item| item[:id]==id.to_i}.first
+  end
+  
+  def self.all
+    DATA
+  end
 end
