@@ -6,7 +6,6 @@ class WorkstationsController < ApplicationController
     render json: station
   end
   def index
-    # puts DATA
-    render json: Workstation.all
+    render json: Workstation.all(params[:include])
   end
 end

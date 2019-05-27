@@ -50,8 +50,14 @@ class Workstation
     result    
   end
   
-  def self.all
-    {"data": DATA.map{|station| Workstation.format(station)}}
+  def self.all(include)
+    result = {"data": DATA.map{|station| Workstation.format(station)}}
+    if include
+      users = Set[]
+      DATA.map{|station| (station[:users].each{|user| users.add(user)})}
+      result["included"] = User.find_all(users)
+    end
+    result
   end
   
   private
