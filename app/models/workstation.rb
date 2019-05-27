@@ -39,8 +39,15 @@ class Workstation
     }
   ].freeze
   
-  def self.find(id)      
-    {"data": Workstation.format(DATA.select{|item| item[:id]==id.to_i}.first)} 
+  def self.find(id, include)     
+    station_raw = DATA.select{|item| item[:id]==id.to_i}.first
+    station = Workstation.format(station_raw)
+    result = { "data": station, } 
+    if include
+      users = User.find_all(station_raw[:users])
+      result["included"] = users 
+    end
+    result    
   end
   
   def self.all
@@ -70,7 +77,6 @@ class Workstation
     formatted[:id] = station[:id]
     formatted[:attributes] = formatted[:attributes].map { |k,_| [k, station[k]] }.to_h 
     if station[:users]
-      puts station[:users]
       formatted[:relationships][:users] = station[:users].map{ |id| {"id": id, "type":"user"}}
     end
     formatted
