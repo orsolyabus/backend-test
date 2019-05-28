@@ -41,13 +41,18 @@ class Workstation
   
   def self.find(id, include)     
     station_raw = DATA.select{|item| item[:id]==id.to_i}.first
+    if !station_raw
+      raise IndexError.new('Record not found')
+    end
     station = Workstation.format(station_raw)
     result = { "data": station, } 
-    if include
+    if include && include != "users"
+      raise ArgumentError.new("invalid include parameter")
+    elsif include
       users = User.find_all(station_raw[:users])
       result["included"] = users 
     end
-    result    
+    p result    
   end
   
   def self.all(include)
