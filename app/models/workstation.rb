@@ -39,57 +39,26 @@ class Workstation
     }
   ].freeze
   
-  def self.find(id, include)     
+  def self.find(id)     
     station_raw = DATA.select{|item| item[:id]==id.to_i}.first
+    
     if !station_raw
       raise IndexError.new('Record not found')
     end
-    station = Workstation.format(station_raw)
-    result = { "data": station, } 
-    if include && include != "users"
-      raise ArgumentError.new("invalid include parameter")
-    elsif include
-      users = User.find_all(station_raw[:users])
-      result["included"] = users 
-    end
-    p result    
+
+    station_raw    
   end
   
   def self.all(include)
     result = {"data": DATA.map{|station| Workstation.format(station)}}
+    
     if include
       users = Set[]
       DATA.map{|station| (station[:users].each{|user| users.add(user)})}
       result["included"] = User.find_all(users)
     end
+    
     result
   end
-  
-  private
-  
-  def self.format(station)
-    formatted = {
-      "type": "workstation",
-      "id": "",
-      "attributes": {
-        "name": "",
-        "ip_address": "",
-        "status": "",
-        "instance_type": "",
-        "platform": ""
-      },
-      "relationships": {
-        "users": {
-          "data": [
-          ]
-        }
-      }
-    }
-    formatted[:id] = station[:id]
-    formatted[:attributes] = formatted[:attributes].map { |k,_| [k, station[k]] }.to_h 
-    if station[:users]
-      formatted[:relationships][:users] = station[:users].map{ |id| {"id": id, "type":"user"}}
-    end
-    formatted
-  end
+    
 end
